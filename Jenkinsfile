@@ -11,13 +11,13 @@ node {
         /* This builds the actual image; synonymous to
          * docker build on the command line */
 
-        app = docker.build("sr20/example-app")
+        app = docker.build("sr20/example-app:${env.BUILD_ID}")
     }
 
     stage('Push image') {
         /* Finally, we'll push the image into Docker Hub */
 
-        docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
+        docker.withRegistry('https://registry.hub.docker.com','docker-hub-credentials') {
             app.push("latest")
         }
     }
