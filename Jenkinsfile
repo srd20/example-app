@@ -13,7 +13,13 @@ node {
 
         app = docker.build("sr20/example-app:${env.BUILD_ID}")
     }
-
+    
+    stage('Test') {
+           app.inside {
+		sh 'npm test'
+	   }
+    }
+		
     stage('Push image') {
         /* Finally, we'll push the image into Docker Hub */
 
